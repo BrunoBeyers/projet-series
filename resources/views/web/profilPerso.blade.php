@@ -208,7 +208,10 @@
                             @foreach($visionnages as $visionnage)
                                 <div class="flex items-center space-x-6 p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors duration-200">
                                     @if($visionnage->episode->image_url)
-                                        <img src="{{ asset('storage/' . $visionnage->episode->image_url) }}" 
+                                        @php
+                                            $isExternal = Str::startsWith($visionnage->episode->image_url, ['http://', 'https://']);
+                                        @endphp
+                                        <img src="{{ $isExternal ? $visionnage->episode->image_url : asset('storage/' . $visionnage->episode->image_url) }}" 
                                              alt="Épisode {{ $visionnage->episode->numero_episode }}: {{ $visionnage->episode->titre }}"
                                              class="w-20 h-28 object-cover rounded-lg shadow-sm">
                                     @else
@@ -223,7 +226,7 @@
                                             {{ $visionnage->episode->titre ?? 'Épisode ' . $visionnage->episode->numero_episode }}
                                         </h3>
                                         <p class="text-sm text-gray-600 mb-2">
-                                            Saison {{ $visionnage->episode->numero_saison ?? 'N/A' }} - 
+                                           
                                             Épisode {{ $visionnage->episode->numero_episode }}
                                         </p>
                                         <p class="text-xs text-gray-500 flex items-center">
