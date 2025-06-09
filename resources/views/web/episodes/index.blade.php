@@ -62,7 +62,10 @@
                             <!-- Episode Image -->
                             <div class="flex-shrink-0 w-48 h-32 bg-gradient-to-br from-gray-100 to-gray-200 relative overflow-hidden">
                                 @if($episode->image_url)
-                                    <img src="{{ asset('storage/' . $episode->image_url) }}"
+                                    @php
+                                        $isExternal = Str::startsWith($episode->image_url, ['http://', 'https://']);
+                                    @endphp
+                                    <img src="{{ $isExternal ? $episode->image_url : asset('storage/' . $episode->image_url) }}"
                                          alt="Image épisode {{ $episode->numero_episode }}"
                                          class="w-full h-full object-cover">
                                 @else

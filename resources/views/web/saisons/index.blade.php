@@ -107,7 +107,10 @@
                         <!-- Image Header -->
                         <div class="relative h-48 bg-gradient-to-br from-gray-200 to-gray-300 overflow-hidden">
                             @if($saison->image_url)
-                                <img src="{{ asset('storage/' . $saison->image_url) }}" 
+                                @php
+                                    $isExternal = Str::startsWith($saison->image_url, ['http://', 'https://']);
+                                @endphp
+                                <img src="{{ $isExternal ? $saison->image_url : asset('storage/' . $saison->image_url) }}" 
                                      alt="Saison {{ $saison->numero }}"
                                      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                             @else
@@ -179,7 +182,10 @@
                             <!-- Image -->
                             <div class="flex-shrink-0">
                                 @if($saison->image_url)
-                                    <img src="{{ asset('storage/' . $saison->image_url) }}" 
+                                    @php
+                                        $isExternal = Str::startsWith($saison->image_url, ['http://', 'https://']);
+                                    @endphp
+                                    <img src="{{ $isExternal ? $saison->image_url : asset('storage/' . $saison->image_url) }}" 
                                          alt="Saison {{ $saison->numero }}"
                                          class="w-24 h-32 object-cover rounded-lg shadow-sm">
                                 @else

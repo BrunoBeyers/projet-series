@@ -4,7 +4,7 @@
 <div class="max-w-3xl mx-auto px-6 py-10">
 
     <h1 class="text-3xl font-extrabold mb-6 text-gray-800">
-        Modifier l’épisode 
+        Modifier l'épisode 
         <span class="text-orange-600">"{{ $episode->titre }}"</span> — 
         Saison {{ $saison->numero }} de {{ $saison->serie->titre }}
     </h1>
@@ -16,7 +16,7 @@
         @method('PUT')
 
         <div>
-            <label for="numero_episode" class="block font-semibold text-gray-700 mb-2">Numéro d’épisode</label>
+            <label for="numero_episode" class="block font-semibold text-gray-700 mb-2">Numéro d'épisode</label>
             <input type="number" name="numero_episode" id="numero_episode" value="{{ old('numero_episode', $episode->numero_episode) }}"
                    class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500" min="1" required>
             @error('numero_episode')
@@ -46,7 +46,10 @@
         <div>
             <label class="block font-semibold text-gray-700 mb-2">Image actuelle</label>
             @if($episode->image_url)
-                <img src="{{ asset('storage/' . $episode->image_url) }}" 
+                @php
+                    $isExternal = Str::startsWith($episode->image_url, ['http://', 'https://']);
+                @endphp
+                <img src="{{ $isExternal ? $episode->image_url : asset('storage/' . $episode->image_url) }}" 
                      alt="Image épisode" 
                      class="rounded shadow max-w-[200px] h-auto object-cover">
             @else
@@ -92,6 +95,6 @@
     </form>
 </div>
 
-<!-- Alpine.js requis pour l’aperçu -->
+<!-- Alpine.js requis pour l'aperçu -->
 <script src="//unpkg.com/alpinejs" defer></script>
 @endsection

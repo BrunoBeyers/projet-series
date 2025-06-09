@@ -73,7 +73,11 @@
         @if($saison->image_url)
             <div class="mt-4">
                 <p class="font-semibold text-gray-600 mb-1">Image actuelle :</p>
-                <img src="{{ asset('storage/' . $saison->image_url) }}" alt="Image saison"
+                @php
+                    $isExternal = Str::startsWith($saison->image_url, ['http://', 'https://']);
+                @endphp
+                <img src="{{ $isExternal ? $saison->image_url : asset('storage/' . $saison->image_url) }}" 
+                     alt="Image saison"
                      class="rounded-md shadow max-h-40 object-cover border border-gray-200">
             </div>
         @endif
