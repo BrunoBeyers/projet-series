@@ -29,8 +29,9 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/dashboard', function () {
-        return view('dashboard');
+        return redirect()->route('accueil');
     })->name('dashboard');
+    
 
     Route::get('/accueil', [Accueil::class, 'index'])->name('accueil');
     Route::get('/series', [SerieController::class, 'index'])->name('series.index');

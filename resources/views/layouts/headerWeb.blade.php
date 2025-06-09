@@ -1,4 +1,4 @@
-<header class="glass-effect shadow-lg mb-8 z-20 relative sticky top-0">
+<header class="shadow-lg mb-8 z-20 relative sticky top-0 bg-white">
     <div class="container mx-auto flex items-center justify-between py-4 px-6">
         <!-- Logo et Brand -->
         <div class="flex items-center gap-3">
