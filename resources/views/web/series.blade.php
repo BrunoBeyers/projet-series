@@ -215,7 +215,13 @@
                         <!-- Image Container -->
                         <div class="image-container relative h-64">
                             @if($serie->image_url)
-                                <img src="{{ $serie->image_url }}" 
+                                @php
+                                    $imageUrl = $serie->image_url;
+                                    if (!filter_var($imageUrl, FILTER_VALIDATE_URL)) {
+                                        $imageUrl = asset($imageUrl);
+                                    }
+                                @endphp
+                                <img src="{{ $imageUrl }}" 
                                      alt="{{ $serie->titre }}" 
                                      class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                                      loading="lazy">

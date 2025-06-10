@@ -6,7 +6,13 @@
     <!-- Hero Section avec l'image de la série -->
     <div class="relative h-[70vh] w-full overflow-hidden">
         @if($serie->image_url)
-            <img src="{{ $serie->image_url }}" alt="{{ $serie->titre }}" 
+            @php
+                $imageUrl = $serie->image_url;
+                if (!filter_var($imageUrl, FILTER_VALIDATE_URL)) {
+                    $imageUrl = asset($imageUrl);
+                }
+            @endphp
+            <img src="{{ $imageUrl }}" alt="{{ $serie->titre }}" 
                  class="w-full h-full object-cover">
         @endif
         <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>

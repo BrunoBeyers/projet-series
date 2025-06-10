@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Serie;
+use Illuminate\Support\Facades\Storage;
 
 class SerieAjoutController extends Controller
 {
@@ -35,7 +36,7 @@ class SerieAjoutController extends Controller
     
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('series_images', 'public');
-            $validated['image_url'] = '/storage/' . $path;
+            $validated['image_url'] = Storage::url($path);
         }
     
         Serie::create($validated);
@@ -59,7 +60,7 @@ class SerieAjoutController extends Controller
 
     // Si une nouvelle image est uploadée
     if ($request->hasFile('image')) {
-        // Supprimer l’ancienne si elle existe (facultatif)
+        // Supprimer l'ancienne si elle existe (facultatif)
         if ($serie->image_url && file_exists(public_path($serie->image_url))) {
             unlink(public_path($serie->image_url));
         }
